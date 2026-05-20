@@ -57,6 +57,10 @@
         <svg-icon icon-class="settings" />
         {{ $t('library.userProfileMenu.settings') }}
       </div>
+      <div class="item" @click="toRecentlyPlayed">
+        <svg-icon icon-class="list" />
+        {{ $t('library.userProfileMenu.recentlyPlayed') }}
+      </div>
       <div v-if="!isLooseLoggedIn" class="item" @click="toLogin">
         <svg-icon icon-class="login" />
         {{ $t('login.login') }}
@@ -156,6 +160,9 @@ export default {
     },
     toSettings() {
       this.$router.push({ name: 'settings' });
+    },
+    toRecentlyPlayed() {
+      this.$router.push({ name: 'recentlyPlayed' });
     },
     toGitHub() {
       window.open('https://github.com/qier222/YesPlayMusic');

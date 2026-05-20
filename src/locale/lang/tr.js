@@ -39,6 +39,12 @@ export default {
     userProfileMenu: {
       settings: 'Ayarlar',
       logout: 'Çıkış Yap',
+      recentlyPlayed: 'Son Çalınanlar',
+    },
+    recentlyPlayed: {
+      title: 'Son Çalınanlar',
+      clearAll: 'Geçmişi Temizle',
+      empty: 'Henüz çalma geçmişi yok',
     },
   },
   explore: {

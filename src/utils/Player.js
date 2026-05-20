@@ -6,7 +6,7 @@ import { getPlaylistDetail, intelligencePlaylist } from '@/api/playlist';
 import { getLyric, getMP3, getTrackDetail, scrobble } from '@/api/track';
 import store from '@/store';
 import { isAccountLoggedIn } from '@/utils/auth';
-import { cacheTrackSource, getTrackSource } from '@/utils/db';
+import { cacheTrackSource, getTrackSource, addPlayHistory } from '@/utils/db';
 import { isCreateMpris, isCreateTray } from '@/utils/platform';
 import { Howl, Howler } from 'howler';
 import shuffle from 'lodash/shuffle';
@@ -502,6 +502,7 @@ export default class {
       const track = data.songs[0];
       this._currentTrack = track;
       this._updateMediaSessionMetaData(track);
+      addPlayHistory(track);
       return this._replaceCurrentTrackAudio(
         track,
         autoplay,

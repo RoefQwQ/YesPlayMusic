@@ -283,6 +283,11 @@
           </div>
         </transition>
       </div>
+      <div class="close-button" style="right: 76px" @click="minimizeWindow">
+        <button>
+          <svg-icon icon-class="minimize" />
+        </button>
+      </div>
       <div class="close-button" @click="toggleLyrics">
         <button>
           <svg-icon icon-class="arrow-down" />
@@ -510,6 +515,12 @@ export default {
         document.exitFullscreen();
       } else {
         document.documentElement.requestFullscreen();
+      }
+    },
+    minimizeWindow() {
+      if (process.env.IS_ELECTRON) {
+        const { ipcRenderer } = window.require('electron');
+        ipcRenderer.send('minimize');
       }
     },
     addToPlaylist() {

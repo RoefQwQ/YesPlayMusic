@@ -12,6 +12,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+package-lock.json
 
 # Editor directories and files
 .idea
@@ -41,3 +42,12 @@ devenv.local.nix
 
 # pre-commit
 .pre-commit-config.yaml
+
+# Trae IDE
+.trae/
+
+# Build logs
+build*.txt
+
+# Node.js portable
+node-v16*

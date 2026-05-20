@@ -36,6 +36,12 @@ export default {
     userProfileMenu: {
       settings: '設定',
       logout: '登出',
+      recentlyPlayed: '最近播放',
+    },
+    recentlyPlayed: {
+      title: '最近播放',
+      clearAll: '清空歷史',
+      empty: '暫無播放記錄',
     },
   },
   explore: {

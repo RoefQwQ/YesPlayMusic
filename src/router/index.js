@@ -115,6 +115,15 @@ const routes = [
     },
   },
   {
+    path: '/library/recently-played',
+    name: 'recentlyPlayed',
+    component: () => import('@/views/recentlyPlayed.vue'),
+    meta: {
+      keepAlive: true,
+      savePosition: true,
+    },
+  },
+  {
     path: '/settings',
     name: 'settings',
     component: () => import('@/views/settings.vue'),

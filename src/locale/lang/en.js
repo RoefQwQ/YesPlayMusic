@@ -39,6 +39,12 @@ export default {
     userProfileMenu: {
       settings: 'Settings',
       logout: 'Logout',
+      recentlyPlayed: 'Recently Played',
+    },
+    recentlyPlayed: {
+      title: 'Recently Played',
+      clearAll: 'Clear History',
+      empty: 'No play history yet',
     },
   },
   explore: {

@@ -5,6 +5,13 @@ import store from '@/store';
 
 const db = new Dexie('yesplaymusic');
 
+db.version(5).stores({
+  trackDetail: '&id, updateTime',
+  lyric: '&id, updateTime',
+  album: '&id, updateTime',
+  playHistory: '++id, trackId, playTime',
+});
+
 db.version(4).stores({
   trackDetail: '&id, updateTime',
   lyric: '&id, updateTime',
@@ -180,4 +187,44 @@ export function clearDB() {
     });
     resolve();
   });
+}
+
+export function addPlayHistory(track) {
+  if (!track || !track.id) return;
+  const artist =
+    (track.ar && track.ar.map(a => a.name).join(' / ')) ||
+    (track.artists && track.artists.map(a => a.name).join(' / ')) ||
+    'Unknown';
+  const albumName =
+    (track.al && track.al.name) ||
+    (track.album && track.album.name) ||
+    'Unknown';
+  const albumCover =
+    (track.al && track.al.picUrl) || (track.album && track.album.picUrl) || '';
+  return db.playHistory.put({
+    trackId: track.id,
+    trackName: track.name,
+    artistName: artist,
+    albumName: albumName,
+    albumCover: albumCover,
+    duration: track.dt || track.duration || 0,
+    playTime: new Date().getTime(),
+  });
+}
+
+export function getPlayHistory(limit = 100, offset = 0) {
+  return db.playHistory
+    .orderBy('playTime')
+    .reverse()
+    .offset(offset)
+    .limit(limit)
+    .toArray();
+}
+
+export function getPlayHistoryCount() {
+  return db.playHistory.count();
+}
+
+export function clearPlayHistory() {
+  return db.playHistory.clear();
 }
