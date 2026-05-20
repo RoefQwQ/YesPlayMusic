@@ -1036,7 +1036,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0.28;
+  opacity: 0.5;
   transition: 0.2s;
   -webkit-app-region: no-drag;
 

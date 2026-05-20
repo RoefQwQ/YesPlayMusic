@@ -4,7 +4,6 @@ function resolve(dir) {
   return path.join(__dirname, dir);
 }
 
-const isElectronBuild = process.argv.some(arg => arg.includes('electron'));
 module.exports = {
   // 生产环境打包不输出 map
   productionSourceMap: false,
@@ -30,9 +29,6 @@ module.exports = {
     manifestOptions: {
       background_color: '#335eea',
     },
-    // workboxOptions: {
-    //   swSrc: "dev/sw.js",
-    // },
   },
   pages: {
     index: {
@@ -44,11 +40,6 @@ module.exports = {
     },
   },
   chainWebpack(config) {
-    if (isElectronBuild) {
-      config.plugins.delete('pwa');
-      config.plugins.delete('prefetch-index');
-    }
-
     config.module.rules.delete('svg');
     config.module.rule('svg').exclude.add(resolve('src/assets/icons')).end();
     config.module
@@ -193,7 +184,7 @@ module.exports = {
           .end()
           .use('esbuild-loader')
           .loader('esbuild-loader')
-          .options({ target: 'es2020' })
+          .options({ target: 'es2020', format: "cjs" })
           .end();
       },
       // 渲染线程的配置文件

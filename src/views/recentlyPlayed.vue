@@ -30,6 +30,8 @@
 
 <script>
 import NProgress from 'nprogress';
+import { mapState } from 'vuex';
+import debounce from 'lodash/debounce';
 import TrackList from '@/components/TrackList.vue';
 import {
   getPlayHistory,
@@ -52,10 +54,29 @@ export default {
       hasMore: false,
     };
   },
+  computed: {
+    ...mapState(['player']),
+    currentTrackID() {
+      return this.player.currentTrackID;
+    },
+  },
+  watch: {
+    currentTrackID() {
+      this.debouncedRefresh();
+    },
+  },
   created() {
+    this.debouncedRefresh = debounce(() => {
+      this.offset = 0;
+      this.loadHistory();
+    }, 300);
     setTimeout(() => {
       if (!this.show) NProgress.start();
     }, 1000);
+    this.loadHistory();
+  },
+  activated() {
+    this.offset = 0;
     this.loadHistory();
   },
   methods: {
